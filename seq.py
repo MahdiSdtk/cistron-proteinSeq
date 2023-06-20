@@ -33,7 +33,7 @@ with open('pro-letter.json', mode='r', encoding='utf8') as file:
 while(True):
     lst = np.array([])  #  what is this for?:o
     input1 = input('\ninput a cistron sequence.\n1)from a file\n2)enter it as a text\n3)locate the root folder\n')
-    if input1 == 1:  # seq from  file input (could be a txt, fasta or ...)
+    if input1 == '1':  # seq from  file input (could be a txt, fasta or ...)
         print('locate the intended sequence')
         seq_loc = pathlib.Path(input(': '))
 
@@ -45,20 +45,30 @@ while(True):
         except:
             simpleError()
             continue
-    elif input1 == 2:  #  seq from text input
+    elif input1 == '2':  #  seq from text input
         # incomplete protein seq from text input
         pass
-    elif input == 3:
+    elif input1 == '3':
         print('enter the root folder location')
         root_folder = pathlib.Path(input(': ')) # 'data' folder
         data_set = root_folder/'dataset_catalog.json' # contains the file names
+        with open(data_set, mode='r') as file:
+            data_set = file.read()
         data_setdic = json.loads(data_set)
         data_set_paths = {} # file paths
         for i in range(len(data_setdic['genes']['files'])):
-            data_set_paths[data_setdic['genes'][files][i]['fileType']] = data_setdic['genes'][files][i]['filePath']
+            data_set_paths[data_setdic['genes']['files'][i]['fileType']] = data_setdic['genes']['files'][i]['filePath']
         # analyse each file (directories stored in data_set_paths)
+        gene_file_path = root_folder/data_set_paths[data_setdic['genes']['files'][0]['fileType']]
+        # store the content of each file in a dictionary with file names as the keys
+        with open(gene_file_path) as file:
+            gene_file = file.read()
         try:
-            with open()
+            print(root_folder)
+            print(data_set_paths)
+            print(gene_file)
+            pass
+            #with open()
             # incomplete root folder access
         except:
             simpleError()
